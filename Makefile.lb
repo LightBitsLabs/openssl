@@ -6,7 +6,7 @@ install_dir:
 	@mkdir -p $(_INSTALL_DIR)
 
 build:
-	./Configure --prefix=$(_INSTALL_DIR)
+	./Configure --prefix=$(_INSTALL_DIR) --openssldir=$(_INSTALL_DIR)/local/ssl
 	make
 
 install: build |install_dir
