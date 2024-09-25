@@ -1,0 +1,22 @@
+_INSTALL_DIR ?= $(shell component-tool localpath --repo=openssl --type=$(BUILD_TYPE) openssl)
+
+all: build
+
+install_dir:
+	@mkdir -p $(_INSTALL_DIR)
+
+build:
+	./Configure --prefix=$(_INSTALL_DIR) --openssldir=$(_INSTALL_DIR)/local/ssl
+	make
+
+install: build |install_dir
+	make install
+
+checkin:
+	$(Q)component-tool checkin -v --repo=openssl --type=$(BUILD_TYPE) checkin
+
+clean:
+	make clean
+
+.PHONY: clean install_dir checkin build
+
